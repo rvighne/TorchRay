@@ -1,0 +1,4 @@
+#game {
+	/* Simulate sky and ground */
+	background-image: linear-gradient(skyblue 50%, silver 50%);
+}
