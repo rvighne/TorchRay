@@ -49,7 +49,7 @@ class Renderer {
 			this.ctx.beginPath();
 			this.ctx.moveTo(sliceCenter, halfHeight - halfWallHeight);
 			this.ctx.lineTo(sliceCenter, halfHeight + halfWallHeight);
-			this.ctx.strokeStyle = shading ? Color.lerp(hit.color, shading.color, hit.dist / shading.maxDist) : hit.color;
+			this.ctx.strokeStyle = shading ? Color.lerp(hit.color, shading.color, hit.dist / shading.maxDist).trunc() : hit.color;
 			this.ctx.stroke();
 			this.ctx.closePath();
 		}

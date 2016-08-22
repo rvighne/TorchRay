@@ -9,15 +9,23 @@ class Color {
 
 	// Interpolates between two colors within a clamped range
 	static lerp(from, to, pos) {
-		if (pos <= 0) {
-			return from;
-		} else if (pos >= 1) {
-			return to;
-		} else {
-			return new Color(Math.trunc(from.red + (to.red - from.red) * pos),
-				Math.trunc(from.green + (to.green - from.green) * pos),
-				Math.trunc(from.blue + (to.blue - from.blue) * pos));
+		if (pos < 0) {
+			pos = 0;
+		} else if (pos > 1) {
+			pos = 1;
 		}
+
+		return new Color(from.red + (to.red - from.red) * pos,
+			from.green + (to.green - from.green) * pos,
+			from.blue + (to.blue - from.blue) * pos);
+	}
+
+	trunc() {
+		this.red = Math.trunc(this.red);
+		this.green = Math.trunc(this.green);
+		this.blue = Math.trunc(this.blue);
+
+		return this;
 	}
 
 	// CSS color format
