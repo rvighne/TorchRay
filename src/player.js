@@ -21,8 +21,6 @@ class Player {
 		ray.x = (right ? Math.ceil : Math.floor)(ray.x);
 		ray.y += (ray.x - this.pos.x) * (dir.y / dir.x);
 
-		yield ray;
-
 		let step = new Vector(right ? 1 : -1, dir.y / Math.abs(dir.x));
 		for (;; ray.add(step)) {
 			yield ray;
@@ -36,8 +34,6 @@ class Player {
 		let ray = this.pos.copy();
 		ray.y = (down ? Math.ceil : Math.floor)(ray.y);
 		ray.x += (ray.y - this.pos.y) * (dir.x / dir.y);
-
-		yield ray;
 
 		let step = new Vector(dir.x / Math.abs(dir.y), down ? 1 : -1);
 		for (;; ray.add(step)) {
