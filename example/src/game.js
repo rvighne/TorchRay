@@ -44,8 +44,8 @@ let renderer = new Renderer(ctx, player, {
 
 	textures: (function () {
 		let textures = {
-			0: "texture_tilewall.jpg",
-			255: "texture_brickwall.jpg"
+			0: "res/texture_tilewall.jpg",
+			255: "res/texture_brickwall.jpg"
 		};
 
 		for (let idx in textures) {
@@ -61,7 +61,7 @@ let renderer = new Renderer(ctx, player, {
 	wallHeight: canvas.height
 });
 
-loadImage("level.png").then(function (img) {
+loadImage("res/level.png").then(function (img) {
 	player.map = SceneMap.fromImage(img);
 
 	// Start the game
