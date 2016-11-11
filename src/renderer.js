@@ -23,6 +23,7 @@ class Renderer {
 
 		let halfPlaneLength = this.camera.plane.length();
 
+		let textures = this.opts.textures || [];
 		let shading = this.opts.shading;
 
 		/* Critical loop */
@@ -46,12 +47,18 @@ class Renderer {
 			}
 
 			// Draw the vertical slice
-			this.ctx.beginPath();
-			this.ctx.moveTo(sliceCenter, halfHeight - halfWallHeight);
-			this.ctx.lineTo(sliceCenter, halfHeight + halfWallHeight);
-			this.ctx.strokeStyle = shading ? Color.lerp(hit.color, shading.color, hit.dist / shading.maxDist).trunc() : hit.color;
-			this.ctx.stroke();
-			this.ctx.closePath();
+			let texImg = textures[hit.color.red];
+			if (texImg) {
+				let offset = Math.trunc((hit.wall.x % 1 || hit.wall.y % 1) * texImg.width);
+				this.ctx.drawImage(texImg, offset, 0, 1, texImg.height, x, halfHeight - halfWallHeight, sliceWidth, halfWallHeight * 2);
+			} else {
+				this.ctx.beginPath();
+				this.ctx.moveTo(sliceCenter, halfHeight - halfWallHeight);
+				this.ctx.lineTo(sliceCenter, halfHeight + halfWallHeight);
+				this.ctx.strokeStyle = shading ? Color.lerp(hit.color, shading.color, hit.dist / shading.maxDist).trunc() : hit.color;
+				this.ctx.stroke();
+				this.ctx.closePath();
+			}
 		}
 	}
 }

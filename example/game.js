@@ -3,8 +3,8 @@
 
 /* Constants and utilities */
 
-const TURN_SPEED = Math.PI / 1024;
-const MOVE_SPEED = 0.01;
+const TURN_SPEED = Math.PI / 2048;
+const MOVE_SPEED = 0.0075;
 
 function loadImage(url) {
 	return new Promise(function (fulfill, reject) {
@@ -42,7 +42,22 @@ let renderer = new Renderer(ctx, player, {
 		width: canvas.width, height: canvas.height
 	},
 
-	slice: 4,
+	textures: (function () {
+		let textures = {
+			0: "texture_tilewall.jpg",
+			255: "texture_brickwall.jpg"
+		};
+
+		for (let idx in textures) {
+			let img = new Image;
+			img.src = textures[idx];
+			textures[idx] = img;
+		}
+
+		return textures;
+	})(),
+
+	slice: 2,
 	wallHeight: canvas.height
 });
 
