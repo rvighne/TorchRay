@@ -65,7 +65,6 @@ loadImage("res/level.png").then(function (img) {
 	player.map = SceneMap.fromImage(img);
 
 	// Start the game
-	renderer.render();
 	prevTime = performance.now();
 	requestAnimationFrame(update);
 });
@@ -136,34 +135,21 @@ let prevTime; // Initialized when game starts
 function update(timestamp) {
 	requestAnimationFrame(update);
 
-	// Repaint only if state changed, i.e. via player movement
-	let repaint = false;
-
 	if (keys.up) {
 		let dist = (timestamp - prevTime) * MOVE_SPEED;
 		player.move(player.dir, dist);
-
-		repaint = true;
 	} else if (keys.down) {
 		let dist = (timestamp - prevTime) * MOVE_SPEED;
 		player.move(player.dir.copy().mul(-1), dist);
-
-		repaint = true;
 	}
 
 	if (keys.left) {
 		player.rotate(-TURN_SPEED * (timestamp - prevTime));
-
-		repaint = true;
 	} else if (keys.right) {
 		player.rotate(TURN_SPEED * (timestamp - prevTime));
-
-		repaint = true;
 	}
 
-	if (repaint) {
-		renderer.render();
-	}
+	renderer.render();
 
 	prevTime = timestamp;
 }
